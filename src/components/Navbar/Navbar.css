@@ -1,0 +1,6 @@
+.nav-item a,
+.navbar-nav .nav-item .nav-link.active,
+.nav-item .nav-link.disabled,
+.container-fluid .navbar-brand {
+  color: white;
+}
