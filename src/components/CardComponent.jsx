@@ -1,4 +1,4 @@
-import ButtonPartial from "../partials/ButtonPratial";
+import ButtonPartial, { btnPartialOptions } from "../partials/ButtonPartial";
 
 const CardComponent = ({ imgUrl, title, description }) => {
   return (
@@ -7,7 +7,12 @@ const CardComponent = ({ imgUrl, title, description }) => {
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>
-        <ButtonPartial>click me</ButtonPartial>
+        <ButtonPartial
+          btnOption={btnPartialOptions.primary}
+          icon="bi-chat-left-heart-fill"
+        >
+          Add
+        </ButtonPartial>
       </div>
     </div>
   );
