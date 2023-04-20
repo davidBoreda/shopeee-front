@@ -1,6 +1,6 @@
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar/Navbar";
-import AboutUs from "./pages/AboutUs";
+// import AboutUs from "./pages/AboutUs";
 
 const App = () => {
   return (

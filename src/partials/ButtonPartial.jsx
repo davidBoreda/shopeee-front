@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const btnPartialOptions = {
   primary: "primary",
   secondary: "secondary",
@@ -11,14 +13,36 @@ const btnPartialOptions = {
 };
 
 const ButtonPartial = ({ btnOption, icon, children }) => {
-  const defaultBtnOption = btnPartialOptions.primary;
+  // const defaultBtnOption = btnPartialOptions.primary;
   return (
-    <button className={`btn btn-${btnOption ? btnOption : defaultBtnOption}`}>
-      <i className={`bi ${icon}`}></i>
+    // <button className={`btn btn-${btnOption ? btnOption : defaultBtnOption}`}>
+    <button className={`btn btn-${btnOption}`}>
+      {icon && <i className={`bi ${icon}`}></i>}
       {children}
     </button>
   );
 };
 
+ButtonPartial.propType = {
+  icon: (props, propName, componentName) => {
+    if (/!^bi-([a-z]+)-([a-z]+)-([a-z]+)-([a-z]+)$/.test(props[propName])) {
+      return new Error(
+        "Invalid prop `" +
+          propName +
+          "` supplied to" +
+          " `" +
+          componentName +
+          "`. Validation failed."
+      );
+    }
+  },
+  btnOption: PropTypes.oneOf(Object.values(btnPartialOptions)),
+  children: PropTypes.string.isRequired,
+};
+
+ButtonPartial.defaultProps = {
+  btnOption: btnPartialOptions.primary,
+  children: "I'm a btn",
+};
 export { btnPartialOptions };
 export default ButtonPartial;
