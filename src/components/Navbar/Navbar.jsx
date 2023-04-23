@@ -1,4 +1,7 @@
 import "./Navbar.css";
+import { Fragment } from "react";
+
+const navLinksArr = ["Home", "About Us", "Register", "Contact Us", "Login"];
 
 const Navbar = ({ isDark }) => {
   return (
@@ -29,88 +32,20 @@ const Navbar = ({ isDark }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a
-                className={`nav-link ${
-                  isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                } active`}
-                aria-current="page"
-                href="#"
-              >
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className={`nav-link ${
-                  isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                } active`}
-                href="#"
-              >
-                Link
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className={`nav-link dropdown-toggle nav-link ${
-                  isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                } active`}
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul
-                className={`dropdown-menu ${
-                  isDark ? "bg-primary" : "bg-light"
-                }`}
-              >
-                <li>
+            {navLinksArr.map((item) => {
+              return (
+                <li className="nav-item">
                   <a
-                    className={`dropdown-item ${
+                    className={`nav-link ${
                       isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                    }`}
+                    } active`}
                     href="#"
                   >
-                    Action
+                    {item}
                   </a>
                 </li>
-                <li>
-                  <a
-                    className={`dropdown-item ${
-                      isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                    }`}
-                    href="#"
-                  >
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a
-                    className={`dropdown-item ${
-                      isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                    }`}
-                    href="#"
-                  >
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <a
-                className={`nav-link ${
-                  isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                } disabled`}
-              >
-                Disabled
-              </a>
-            </li>
+              );
+            })}
           </ul>
           <form className="d-flex" role="search">
             <input

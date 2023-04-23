@@ -1,5 +1,6 @@
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar/Navbar";
+// import RegisterPage from "./pages/RegisterPage";
 // import AboutUs from "./pages/AboutUs";
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
       <main>
         <HomePage />
         {/* <AboutUs /> */}
+        {/* <RegisterPage /> */}
       </main>
       <footer></footer>
     </div>
