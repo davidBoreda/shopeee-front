@@ -42,7 +42,7 @@ const HomePage = () => {
       <h1>welcome to SHOPEEE</h1>
       <div className="row row-cols-2 row-cols-md-3 g-4">
         {initialArray.map((item) => (
-          <div className="col">
+          <div className="col" key={item.id + Date.now()}>
             <CardComponent
               imgUrl={item.imgUrl}
               title={item.title}

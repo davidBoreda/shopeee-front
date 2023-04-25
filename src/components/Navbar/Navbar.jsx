@@ -34,7 +34,7 @@ const Navbar = ({ isDark }) => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {navLinksArr.map((item) => {
               return (
-                <li className="nav-item">
+                <li className="nav-item" key={item + Date.now()}>
                   <a
                     className={`nav-link ${
                       isDark ? "nav-item-dark-theme" : "nav-item-light-theme"

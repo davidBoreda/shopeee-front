@@ -17,6 +17,7 @@ const ButtonPartial = ({ btnOption, icon, children }) => {
   return (
     // <button className={`btn btn-${btnOption ? btnOption : defaultBtnOption}`}>
     <button className={`btn btn-${btnOption}`}>
+      {console.log("btn rendered")}
       {icon && <i className={`bi ${icon}`}></i>}
       {children}
     </button>
