@@ -1,19 +1,10 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
 
-const btnPartialOptions = {
-  primary: "primary",
-  secondary: "secondary",
-  success: "success",
-  danger: "danger",
-  warning: "warning",
-  info: "info",
-  light: "light",
-  dark: "dark",
-  link: "link",
-};
+import { btnPartialOptions } from "./ButtonPartial";
 
-const ButtonPartial = ({ btnOption, icon, children }) => {
-  console.log("btn rendered");
+const MemoButtonPartial = ({ btnOption, icon, children }) => {
+  console.log(" memo btn rendered");
   // const defaultBtnOption = btnPartialOptions.primary;
   return (
     // <button className={`btn btn-${btnOption ? btnOption : defaultBtnOption}`}>
@@ -24,7 +15,7 @@ const ButtonPartial = ({ btnOption, icon, children }) => {
   );
 };
 
-ButtonPartial.propType = {
+MemoButtonPartial.propType = {
   icon: (props, propName, componentName) => {
     if (/!^bi-([a-z]+)-([a-z]+)-([a-z]+)-([a-z]+)$/.test(props[propName])) {
       return new Error(
@@ -41,9 +32,9 @@ ButtonPartial.propType = {
   children: PropTypes.string.isRequired,
 };
 
-ButtonPartial.defaultProps = {
+MemoButtonPartial.defaultProps = {
   btnOption: btnPartialOptions.primary,
   children: "I'm a btn",
 };
-export { btnPartialOptions };
-export default ButtonPartial;
+
+export default memo(MemoButtonPartial);

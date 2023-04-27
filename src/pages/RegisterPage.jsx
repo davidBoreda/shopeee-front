@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import ButtonPartial from "../partials/ButtonPartial";
 import ErrorValidationListComponent from "../components/ErrorValidationListComponent";
+import MemoButtonPartial from "../partials/MemoButtonPartial";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -22,7 +23,7 @@ const RegisterPage = () => {
   }, []);
   useEffect(() => {
     //each time inputsValue value changed this function will be executed
-    console.log("inputsValue changed", inputsValue);
+    // console.log("inputsValue changed", inputsValue);
     let newErrorsState = JSON.parse(JSON.stringify(errorsState));
     for (const [key, value] of Object.entries(inputsValue)) {
       // console.log(`${key}: ${value}`);
@@ -102,6 +103,7 @@ const RegisterPage = () => {
         Submit
       </button>
       <ButtonPartial>click me</ButtonPartial>
+      <MemoButtonPartial>Click me memo</MemoButtonPartial>
     </Fragment>
   );
 };
