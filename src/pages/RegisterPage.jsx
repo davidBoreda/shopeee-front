@@ -1,7 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
 import ButtonPartial from "../partials/ButtonPartial";
 import ErrorValidationListComponent from "../components/ErrorValidationListComponent";
-import MemoButtonPartial from "../partials/MemoButtonPartial";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -103,7 +102,6 @@ const RegisterPage = () => {
         Submit
       </button>
       <ButtonPartial>click me</ButtonPartial>
-      <MemoButtonPartial>Click me memo</MemoButtonPartial>
     </Fragment>
   );
 };

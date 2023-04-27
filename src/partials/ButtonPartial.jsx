@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 const btnPartialOptions = {
@@ -46,4 +47,4 @@ ButtonPartial.defaultProps = {
   children: "I'm a btn",
 };
 export { btnPartialOptions };
-export default ButtonPartial;
+export default memo(ButtonPartial);
