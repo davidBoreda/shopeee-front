@@ -1,3 +1,4 @@
+import { memo } from "react";
 import ButtonPartial, { btnPartialOptions } from "../partials/ButtonPartial";
 import PropTypes from "prop-types";
 const CardComponent = ({ imgUrl, title, description }) => {
@@ -39,4 +40,4 @@ CardComponent.propTypes = {
   },
 };
 
-export default CardComponent;
+export default memo(CardComponent);

@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import ButtonPartial from "../partials/ButtonPartial";
 import ErrorValidationListComponent from "../components/ErrorValidationListComponent";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [inputsValue, setInputsValue] = useState({
@@ -13,6 +14,9 @@ const RegisterPage = () => {
     emailInput: [],
     passwordInput: [],
   });
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     //on load to elm/component
     return () => {
@@ -36,6 +40,7 @@ const RegisterPage = () => {
   }, [inputsValue]);
   const handleBtnClick = () => {
     console.log("clicked");
+    navigate("/loginpage");
   };
   const handleInputChange = (ev) => {
     const newInputsValue = JSON.parse(JSON.stringify(inputsValue));
@@ -98,10 +103,8 @@ const RegisterPage = () => {
           Check me out
         </label>
       </div>
-      <button className="btn btn-primary" onClick={handleBtnClick}>
-        Submit
-      </button>
-      <ButtonPartial>click me</ButtonPartial>
+
+      <ButtonPartial onClick={handleBtnClick}>Register now</ButtonPartial>
     </Fragment>
   );
 };

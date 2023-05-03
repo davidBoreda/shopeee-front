@@ -13,12 +13,12 @@ const btnPartialOptions = {
   link: "link",
 };
 
-const ButtonPartial = ({ btnOption, icon, children }) => {
+const ButtonPartial = ({ btnOption, icon, children, onClick }) => {
   console.log("btn rendered");
   // const defaultBtnOption = btnPartialOptions.primary;
   return (
     // <button className={`btn btn-${btnOption ? btnOption : defaultBtnOption}`}>
-    <button className={`btn btn-${btnOption}`}>
+    <button className={`btn btn-${btnOption}`} onClick={onClick}>
       {icon && <i className={`bi ${icon}`}></i>}
       {children}
     </button>
@@ -40,6 +40,7 @@ ButtonPartial.propType = {
   },
   btnOption: PropTypes.oneOf(Object.values(btnPartialOptions)),
   children: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 };
 
 ButtonPartial.defaultProps = {

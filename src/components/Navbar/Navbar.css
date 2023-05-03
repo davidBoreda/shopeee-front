@@ -12,3 +12,6 @@
 .nav-item-light-theme {
   color: darkslategray !important;
 }
+.activeLink {
+  font-weight: bold !important;
+}
