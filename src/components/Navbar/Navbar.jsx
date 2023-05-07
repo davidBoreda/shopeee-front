@@ -16,6 +16,7 @@ const linkArr = [
   new LinkClass("Contact", "/contactuspage"),
   new LinkClass("Register", "/registerpage"),
   new LinkClass("Login", "/loginpage"),
+  new LinkClass("Static Home", "/statichomepage"),
 ];
 
 // const urlArr = [];
@@ -34,7 +35,7 @@ const Navbar = ({ isDark }) => {
           to="/"
           activeClassName="activeLink"
         >
-          Navbar
+          Shopeee
         </NavbarLinkPartial>
         <button
           className="navbar-toggler"

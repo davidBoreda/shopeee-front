@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import StaticHomePage from "./pages/StaticHomePage";
 import Navbar from "./components/Navbar/Navbar";
 import RegisterPage from "./pages/RegisterPage";
 import LifeCycleHooksPage from "./pages/LifeCycleHooksPage";
@@ -9,6 +9,8 @@ import Page404 from "./pages/Page404";
 import AboutUs from "./pages/AboutUs";
 import ContactUsPage from "./pages/ContactUsPage";
 import LoginPage from "./pages/LoginPage";
+import ItemPage from "./pages/ItemPage";
+import HomePage from "./pages/HomePage";
 // import AboutUs from "./pages/AboutUs";
 
 const App = () => {
@@ -17,9 +19,10 @@ const App = () => {
       <header>
         <Navbar isDark={true} />
       </header>
-      <main>
+      <main className="mt-2">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/statichomepage" element={<StaticHomePage />} />
           <Route path="/registerpage" element={<RegisterPage />} />
           <Route path="loginpage" element={<LoginPage />} />
           <Route path="/aboutus" element={<AboutUs />} />
@@ -27,6 +30,7 @@ const App = () => {
           <Route path="/lifecyclehookspage" element={<LifeCycleHooksPage />} />
           <Route path="/usecallbacpkage" element={<UseCallbackPage />} />
           <Route path="/usememopage" element={<UseMemoPage />} />
+          <Route path="/item/:id" element={<ItemPage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </main>
