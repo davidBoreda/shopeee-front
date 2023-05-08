@@ -14,9 +14,10 @@ const linkArr = [
   new LinkClass("Home", "/"),
   new LinkClass("About Us", "/aboutus"),
   new LinkClass("Contact", "/contactuspage"),
-  new LinkClass("Register", "/registerpage"),
+  new LinkClass("Register", "/register"),
+  // new LinkClass("Register Explanation", "/registerpageexplanation"),
   new LinkClass("Login", "/loginpage"),
-  new LinkClass("Static Home", "/statichomepage"),
+  // new LinkClass("Static Home", "/statichomepage"),
 ];
 
 // const urlArr = [];

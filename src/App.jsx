@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import StaticHomePage from "./pages/StaticHomePage";
 import Navbar from "./components/Navbar/Navbar";
-import RegisterPage from "./pages/RegisterPage";
+import RegisterPageExplanation from "./pages/RegisterPageExplanation";
 import LifeCycleHooksPage from "./pages/LifeCycleHooksPage";
 import UseMemoPage from "./pages/UseMemoPage";
 import UseCallbackPage from "./pages/UseCallbackPage";
@@ -11,6 +11,7 @@ import ContactUsPage from "./pages/ContactUsPage";
 import LoginPage from "./pages/LoginPage";
 import ItemPage from "./pages/ItemPage";
 import HomePage from "./pages/HomePage";
+import RegisterPage from "./pages/RegisterPage";
 // import AboutUs from "./pages/AboutUs";
 
 const App = () => {
@@ -23,7 +24,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/statichomepage" element={<StaticHomePage />} />
-          <Route path="/registerpage" element={<RegisterPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/registerpageexplanation"
+            element={<RegisterPageExplanation />}
+          />
           <Route path="loginpage" element={<LoginPage />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactuspage" element={<ContactUsPage />} />

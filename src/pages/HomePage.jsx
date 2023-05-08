@@ -6,7 +6,7 @@ const HomePage = () => {
   const [productArr, setProductArr] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:3030/api/products/1/10")
+      .get("/products/1/10")
       .then(({ data }) => {
         setProductArr(data);
         console.log(data);

@@ -1,113 +1,167 @@
-import { Fragment, useState, useEffect } from "react";
-import ButtonPartial from "../partials/ButtonPartial";
-import ErrorValidationListComponent from "../components/ErrorValidationListComponent";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import validateRegisterSchema from "../validation/registerValidation";
 
 const RegisterPage = () => {
-  const [inputsValue, setInputsValue] = useState({
-    nameInput: "",
-    emailInput: "",
-    passwordInput: "",
-  });
-  const [errorsState, setErrorsState] = useState({
-    nameInput: [],
-    emailInput: [],
-    passwordInput: [],
+  const [userInputs, setUserInputs] = useState({
+    fName: "",
+    lName: "",
+    email: "",
+    password: "",
+    age: "",
+    clientAddress: {
+      city: "",
+      street: "",
+      houseNum: "",
+    },
   });
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    //on load to elm/component
-    return () => {
-      //when elm destroyed
-      console.log("elm done");
-    };
-  }, []);
-  useEffect(() => {
-    //each time inputsValue value changed this function will be executed
-    // console.log("inputsValue changed", inputsValue);
-    let newErrorsState = JSON.parse(JSON.stringify(errorsState));
-    for (const [key, value] of Object.entries(inputsValue)) {
-      // console.log(`${key}: ${value}`);
-      if (!value) {
-        newErrorsState[key] = ["this field should not be empty"];
-      } else {
-        newErrorsState[key] = [];
-      }
+  const handleUserInputsChange = (ev) => {
+    let newUserInputs = JSON.parse(JSON.stringify(userInputs));
+    if (ev.target.id.startsWith("clientAddress")) {
+      const [key, nestedKey] = ev.target.id.split(".");
+      newUserInputs[key] = {
+        ...newUserInputs[key],
+        [nestedKey]: ev.target.value,
+      };
+    } else {
+      newUserInputs[ev.target.id] = ev.target.value;
     }
-    setErrorsState(newErrorsState);
-  }, [inputsValue]);
-  const handleBtnClick = () => {
-    const validatedValues = validateRegisterSchema(inputsValue);
-    console.log("vv", validatedValues);
-    // navigate("/loginpage");
+    setUserInputs(newUserInputs);
   };
-  const handleInputChange = (ev) => {
-    const newInputsValue = JSON.parse(JSON.stringify(inputsValue));
-    newInputsValue[ev.target.id] = ev.target.value;
-    setInputsValue(newInputsValue);
-  };
-  return (
-    <Fragment>
-      <h1>Register page</h1>
-      <div className="mb-3">
-        <label htmlFor="nameInput" className="form-label">
-          Name
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="nameInput"
-          aria-describedby="emailHelp"
-          value={inputsValue.nameInput}
-          onChange={handleInputChange}
-          placeholder="Name"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="emailInput" className="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          id="emailInput"
-          aria-describedby="emailHelp"
-          value={inputsValue.emailInput}
-          onChange={handleInputChange}
-        />
-        <div id="emailHelp" className="form-text">
-          We'll never share your email with anyone else.
-        </div>
-        <ErrorValidationListComponent errorsArr={errorsState.emailInput} />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="passwordInput" className="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          className="form-control"
-          id="passwordInput"
-          value={inputsValue.passwordInput}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="mb-3 form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="exampleCheck1"
-        />
-        <label className="form-check-label" htmlFor="exampleCheck1">
-          Check me out
-        </label>
-      </div>
 
-      <ButtonPartial onClick={handleBtnClick}>Register now</ButtonPartial>
-    </Fragment>
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      await axios.post("/client/register", {
+        fName: userInputs.fName,
+        lName: userInputs.lName,
+        email: userInputs.email,
+        password: userInputs.password,
+        age: userInputs.age,
+        clientAddress: {
+          city: userInputs.clientAddress.city,
+          street: userInputs.clientAddress.street,
+          houseNum: userInputs.clientAddress.houseNum,
+        },
+      });
+      navigate("/loginpage");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <form className="" action="" onSubmit={handleSubmit}>
+      <div className="row row-clos-1 row-cols-md-3 g-4">
+        <div className="col mb-1">
+          <label htmlFor="fNameInput" className="form-label">
+            First Name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="fName"
+            value={userInputs.fName}
+            onChange={handleUserInputsChange}
+          />
+        </div>
+        <div className="col mb-1">
+          <label htmlFor="lNameInput" className="form-label">
+            Last Name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="lName"
+            value={userInputs.lName}
+            onChange={handleUserInputsChange}
+          />
+        </div>
+        <div className="mb-1">
+          <label htmlFor="emailInput" className="form-label">
+            Email Address
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            value={userInputs.email}
+            onChange={handleUserInputsChange}
+          />
+          <div id="emailHelp" className="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div className="mb-1">
+          <label htmlFor="passwordInput" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            aria-describedby="emailHelp"
+            value={userInputs.password}
+            onChange={handleUserInputsChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="ageInput" className="form-label">
+            Age
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            id="age"
+            aria-describedby="ageHelp"
+            value={userInputs.age}
+            onChange={handleUserInputsChange}
+          />
+        </div>
+      </div>
+      <div className="row row-clos-1 row-cols-md-3 g-4">
+        <div className="mb-3">
+          <label htmlFor="addressInput" className="form-label">
+            Address
+          </label>
+          <input
+            type="text"
+            placeholder="City"
+            className="form-control "
+            id="clientAddress.city"
+            aria-describedby="addressHelp"
+            value={userInputs.clientAddress.city}
+            onChange={handleUserInputsChange}
+          />
+          <input
+            type="text"
+            placeholder="street"
+            className="form-control"
+            id="clientAddress.street"
+            aria-describedby="addressHelp"
+            value={userInputs.clientAddress.street}
+            onChange={handleUserInputsChange}
+          />
+          <input
+            type="number"
+            placeholder="House Number"
+            className="form-control"
+            id="clientAddress.houseNum"
+            aria-describedby="addressHelp"
+            value={userInputs.clientAddress.houseNum}
+            onChange={handleUserInputsChange}
+          />
+        </div>
+      </div>
+      <span className="fs-1 fw-bold float-end">Shopeee</span>
+      <button className="btn btn-primary" type="submit">
+        Register Here
+      </button>
+    </form>
   );
 };
 export default RegisterPage;
