@@ -1,6 +1,18 @@
 import PropTypes from "prop-types";
+import ButtonPartial from "../partials/ButtonPartial";
 
-const ProductCardComponent = ({ name, brand, description, price }) => {
+const ProductCardComponent = ({
+  id,
+  name,
+  brand,
+  description,
+  price,
+  onAddToWishList,
+  msg,
+}) => {
+  const handleAddToWishListClick = () => {
+    onAddToWishList(id);
+  };
   return (
     <div className="card">
       <div className="card-header">{brand}</div>
@@ -13,20 +25,27 @@ const ProductCardComponent = ({ name, brand, description, price }) => {
             Price:
             <span className="badge bg-dark pill">{price}</span>
           </li>
+          <span>{msg}</span>
         </ul>
-        <a href="#" className="btn btn-primary">
-          Go somewhere
-        </a>
+        <ButtonPartial
+          icon="bi-clipboard2-heart-fill"
+          onClick={handleAddToWishListClick}
+        >
+          Add
+        </ButtonPartial>
       </div>
     </div>
   );
 };
 
 ProductCardComponent.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string,
   brand: PropTypes.string,
   description: PropTypes.string,
   price: PropTypes.number,
+  onAddToWishList: PropTypes.func,
+  msg: PropTypes.string,
 };
 
 export default ProductCardComponent;
