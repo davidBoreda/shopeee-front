@@ -5,7 +5,7 @@ const ProductCardComponent = ({ name, brand, description, price }) => {
     <div className="card">
       <div className="card-header">{brand}</div>
       <div className="card-body">
-        <img src="..." className="card-img-top" alt="..." />
+        {/* <img src="..." className="card-img-top" alt="..." /> */}
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{description}</p>
         <ul className="list-group list-group-flush">

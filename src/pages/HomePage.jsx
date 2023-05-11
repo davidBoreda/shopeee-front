@@ -9,7 +9,7 @@ const HomePage = () => {
       .get("/products/1/10")
       .then(({ data }) => {
         setProductArr(data);
-        console.log(data);
+        // console.log(data);
       })
       .catch((err) => {
         console.log(err);

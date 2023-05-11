@@ -34,6 +34,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    console.log(userInputs);
     try {
       await axios.post("/client/register", {
         fName: userInputs.fName,
@@ -47,6 +48,7 @@ const RegisterPage = () => {
           houseNum: userInputs.clientAddress.houseNum,
         },
       });
+
       navigate("/loginpage");
     } catch (err) {
       console.log(err);

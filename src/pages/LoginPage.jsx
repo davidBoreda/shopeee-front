@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = () => {
   const [userInputs, setUserInputs] = useState({
@@ -15,9 +16,19 @@ const LoginPage = () => {
     setUserInputs(newInputsValue);
   };
 
-  const handleSubmit = () => {
-    //need validation
-    navigate("/");
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      const { data } = await axios.post("/client/login", {
+        email: userInputs.emailInput,
+        password: userInputs.passwordInput,
+      });
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
