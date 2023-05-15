@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import ProductCardComponent from "../components/ProductCardComponent";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const [productArr, setProductArr] = useState(null);
-  // const [msg, setMsg] = useState(null);
   useEffect(() => {
     axios
       .get("/products/1/10")
@@ -23,9 +23,29 @@ const HomePage = () => {
       const res = await axios.post("/favorite/newfavorite", {
         favoritesId: id,
       });
-      // setMsg(res.data.msg);
+      toast.success("🦄 item added", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (err) {
-      console.log(err);
+      let errorFromServer = err.response.data.err.details.join(", ");
+
+      toast.error(errorFromServer, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -41,7 +61,6 @@ const HomePage = () => {
               price={item.price}
               brand={item.brand}
               onAddToWishList={handleAddToWishListClick}
-              // msg={msg}
             />
           </div>
         ))}
