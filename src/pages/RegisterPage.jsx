@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import validateRegisterSchema from "../validation/registerValidation";
+import AlertPartial from "../partials/AlertPartial";
 
 const RegisterPage = () => {
   const [userInputs, setUserInputs] = useState({
@@ -15,6 +17,8 @@ const RegisterPage = () => {
       houseNum: "",
     },
   });
+
+  const [errMessage, setErrMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -34,24 +38,29 @@ const RegisterPage = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    console.log(userInputs);
     try {
-      await axios.post("/client/register", {
-        fName: userInputs.fName,
-        lName: userInputs.lName,
-        email: userInputs.email,
-        password: userInputs.password,
-        age: userInputs.age,
-        clientAddress: {
-          city: userInputs.clientAddress.city,
-          street: userInputs.clientAddress.street,
-          houseNum: userInputs.clientAddress.houseNum,
-        },
-      });
+      const errors = validateRegisterSchema(userInputs);
+      if (errors) {
+        console.log(errors);
+        setErrMessage(errors);
+      } else {
+        await axios.post("/client/register", {
+          fName: userInputs.fName,
+          lName: userInputs.lName,
+          email: userInputs.email,
+          password: userInputs.password,
+          age: userInputs.age,
+          clientAddress: {
+            city: userInputs.clientAddress.city,
+            street: userInputs.clientAddress.street,
+            houseNum: userInputs.clientAddress.houseNum,
+          },
+        });
 
-      navigate("/loginpage");
+        navigate("/loginpage");
+      }
     } catch (err) {
-      console.log(err);
+      // console.log(err.response.data);
     }
   };
 
@@ -69,6 +78,9 @@ const RegisterPage = () => {
             value={userInputs.fName}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.fName && (
+            <AlertPartial>{errMessage.fName}</AlertPartial>
+          )}
         </div>
         <div className="col mb-1">
           <label htmlFor="lNameInput" className="form-label">
@@ -81,6 +93,9 @@ const RegisterPage = () => {
             value={userInputs.lName}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.lName && (
+            <AlertPartial>{errMessage.lName}</AlertPartial>
+          )}
         </div>
         <div className="mb-1">
           <label htmlFor="emailInput" className="form-label">
@@ -94,10 +109,14 @@ const RegisterPage = () => {
             value={userInputs.email}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.email && (
+            <AlertPartial>{errMessage.email}</AlertPartial>
+          )}
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
           </div>
         </div>
+
         <div className="mb-1">
           <label htmlFor="passwordInput" className="form-label">
             Password
@@ -110,6 +129,13 @@ const RegisterPage = () => {
             value={userInputs.password}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.password && (
+            <AlertPartial>
+              {errMessage.password.map((item) => (
+                <div key={item + Date.now()}>{item}</div>
+              ))}
+            </AlertPartial>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="ageInput" className="form-label">
@@ -123,6 +149,9 @@ const RegisterPage = () => {
             value={userInputs.age}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.age && (
+            <AlertPartial>{errMessage.age}</AlertPartial>
+          )}
         </div>
       </div>
       <div className="row row-clos-1 row-cols-md-3 g-4">
@@ -139,6 +168,9 @@ const RegisterPage = () => {
             value={userInputs.clientAddress.city}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.city && (
+            <AlertPartial>{errMessage.city}</AlertPartial>
+          )}
           <input
             type="text"
             placeholder="street"
@@ -148,6 +180,9 @@ const RegisterPage = () => {
             value={userInputs.clientAddress.street}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.street && (
+            <AlertPartial>{errMessage.street}</AlertPartial>
+          )}
           <input
             type="number"
             placeholder="House Number"
@@ -157,6 +192,9 @@ const RegisterPage = () => {
             value={userInputs.clientAddress.houseNum}
             onChange={handleUserInputsChange}
           />
+          {errMessage && errMessage.houseNum && (
+            <AlertPartial>{errMessage.houseNum}</AlertPartial>
+          )}
         </div>
       </div>
       <span className="fs-1 fw-bold float-end">Shopeee</span>

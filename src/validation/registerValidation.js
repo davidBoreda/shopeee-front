@@ -3,20 +3,30 @@ import Joi from "joi";
 import validate from "./validate";
 
 const registerSchema = Joi.object({
-  nameInput: Joi.string().trim().min(2).max(250).required(),
-  emailInput: Joi.string()
+  fName: Joi.string().trim().min(2).max(250).required(),
+  lName: Joi.string().trim().min(2).max(250).required(),
+  email: Joi.string()
     .email({ tlds: { allow: false } })
     .min(5)
     .max(250)
     .trim()
     .required(),
-  passwordInput: Joi.string()
+  password: Joi.string()
     .pattern(
       new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/)
     )
     .min(8)
     .max(255)
-    .required(),
+    .required()
+    .messages({
+      "string.pattern.base": "follow password rules",
+    }),
+  age: Joi.number(),
+  clientAddress: {
+    city: Joi.string().min(3).max(255).trim().required(),
+    street: Joi.string().min(3).max(255).trim().required(),
+    houseNum: Joi.number().min(0).required(),
+  },
 });
 
 const validateRegisterSchema = (userInputs) =>
