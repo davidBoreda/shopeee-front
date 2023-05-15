@@ -60,7 +60,7 @@ const RegisterPage = () => {
         navigate("/loginpage");
       }
     } catch (err) {
-      // console.log(err.response.data);
+      console.log(err);
     }
   };
 

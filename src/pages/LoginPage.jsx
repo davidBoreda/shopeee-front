@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import validateLoginSchema from "../validation/loginValidation";
+import AlertPartial from "../partials/AlertPartial";
 
 const LoginPage = () => {
   const [userInputs, setUserInputs] = useState({
@@ -8,6 +10,7 @@ const LoginPage = () => {
     passwordInput: "",
   });
 
+  const [errMessage, setErrMessage] = useState(null);
   const navigate = useNavigate();
 
   const handleInputChange = (ev) => {
@@ -19,13 +22,19 @@ const LoginPage = () => {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     try {
-      const { data } = await axios.post("/client/login", {
-        email: userInputs.emailInput,
-        password: userInputs.passwordInput,
-      });
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      navigate("/");
+      const errors = validateLoginSchema(userInputs);
+      if (errors) {
+        console.log(errors);
+        setErrMessage(errors);
+      } else {
+        const { data } = await axios.post("/client/login", {
+          email: userInputs.emailInput,
+          password: userInputs.passwordInput,
+        });
+        console.log(data);
+        localStorage.setItem("token", data.token);
+        navigate("/");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -48,6 +57,13 @@ const LoginPage = () => {
             value={userInputs.emailInput}
             onChange={handleInputChange}
           />
+          {errMessage && errMessage.emailInput && (
+            <AlertPartial>
+              {errMessage.emailInput.map((item) => (
+                <div key={item + Date.now()}>{item}</div>
+              ))}
+            </AlertPartial>
+          )}
         </div>
         <div className="mb-3 col-3">
           <label htmlFor="passwordInput" className="form-label">
@@ -61,7 +77,13 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </div>
-
+        {errMessage && errMessage.passwordInput && (
+          <AlertPartial>
+            {errMessage.passwordInput.map((item) => (
+              <div key={item + Date.now()}>{item}</div>
+            ))}
+          </AlertPartial>
+        )}
         <button type="submit" className="btn btn-primary">
           Login
         </button>
