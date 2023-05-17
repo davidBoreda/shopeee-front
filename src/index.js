@@ -8,10 +8,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/reduxMarge";
 
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3030/api";
+axios.defaults.baseURL = "/api";
 
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -24,9 +26,11 @@ axios.interceptors.request.use((config) => {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 
   // </React.StrictMode>
 );

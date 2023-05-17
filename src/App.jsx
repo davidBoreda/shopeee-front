@@ -1,6 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { authActions } from "./store/auth";
 import "react-toastify/dist/ReactToastify.css";
+
 import StaticHomePage from "./pages/StaticHomePage";
 import Navbar from "./components/Navbar/Navbar";
 import RegisterPageExplanation from "./pages/RegisterPageExplanation";
@@ -14,10 +18,24 @@ import LoginPage from "./pages/LoginPage";
 import ItemPage from "./pages/ItemPage";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
-
+import ReduxPage2 from "./pages/ReduxPage2";
+import ReduxPage from "./pages/ReduxPage";
+import ReduxPage3 from "./pages/ReduxPage3";
+import axios from "axios";
 // import AboutUs from "./pages/AboutUs";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    axios
+      .get("/client/getclientinfo")
+      .then(({ data }) => {
+        dispatch(authActions.login(data));
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
   return (
     <div className="container">
       <ToastContainer />
@@ -26,6 +44,9 @@ const App = () => {
       </header>
       <main className="mt-2">
         <Routes>
+          <Route path="/redux" element={<ReduxPage />} />
+          <Route path="/redux2" element={<ReduxPage2 />} />
+          <Route path="/redux3" element={<ReduxPage3 />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/statichomepage" element={<StaticHomePage />} />
           <Route path="/register" element={<RegisterPage />} />

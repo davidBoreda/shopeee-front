@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import NavbarLinkPartial from "../../partials/NavbarLinkPartial";
 import "./Navbar.css";
 import LinkClass from "../../classes/LinkClass";
@@ -14,14 +15,19 @@ const linkArr = [
   new LinkClass("Home", "/"),
   new LinkClass("About Us", "/aboutus"),
   new LinkClass("Contact", "/contactuspage"),
-  new LinkClass("Register", "/register"),
-  // new LinkClass("Register Explanation", "/registerpageexplanation"),
-  new LinkClass("Login", "/loginpage"),
   // new LinkClass("Static Home", "/statichomepage"),
+  // new LinkClass("Register Explanation", "/registerpageexplanation"),
+];
+
+const logRegLinkArr = [
+  new LinkClass("Register", "/register"),
+  new LinkClass("Login", "/loginpage"),
 ];
 
 // const urlArr = [];
 const Navbar = ({ isDark }) => {
+  const isLoggedIn = useSelector((state) => state.authStore.isLoggedIn);
+  const clientInfo = useSelector((state) => state.authStore.clientInfo);
   return (
     <nav
       className={`navbar ${
@@ -83,6 +89,56 @@ const Navbar = ({ isDark }) => {
               Search
             </button>
           </form>
+          <div className="authDiv">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {isLoggedIn
+                ? [
+                    <li className="nav-item" key={"/profile" + Date.now()}>
+                      <NavbarLinkPartial
+                        className={`nav-link ${
+                          isDark
+                            ? "nav-item-dark-theme"
+                            : "nav-item-light-theme"
+                        } active`}
+                        to="/profile"
+                        activeClassName="activeLink"
+                      >
+                        {clientInfo}
+                      </NavbarLinkPartial>
+                    </li>,
+                    <li className="nav-item" key={"/logout" + Date.now()}>
+                      <NavbarLinkPartial
+                        className={`nav-link ${
+                          isDark
+                            ? "nav-item-dark-theme"
+                            : "nav-item-light-theme"
+                        } active`}
+                        to="/loguot"
+                        activeClassName="activeLink"
+                      >
+                        Loguot
+                      </NavbarLinkPartial>
+                    </li>,
+                  ]
+                : logRegLinkArr.map((item) => {
+                    return (
+                      <li className="nav-item" key={item.name + Date.now()}>
+                        <NavbarLinkPartial
+                          className={`nav-link ${
+                            isDark
+                              ? "nav-item-dark-theme"
+                              : "nav-item-light-theme"
+                          } active`}
+                          to={item.link}
+                          activeClassName="activeLink"
+                        >
+                          {item.name}
+                        </NavbarLinkPartial>
+                      </li>
+                    );
+                  })}
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
