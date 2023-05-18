@@ -14,6 +14,10 @@ const authSlice = createSlice({
       state.clientInfo = actions.payload;
       state.isLoggedIn = true;
     },
+    logout(state) {
+      localStorage.clear();
+      return initialState;
+    },
   },
 });
 

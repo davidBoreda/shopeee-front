@@ -1,8 +1,6 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { authActions } from "./store/auth";
 import "react-toastify/dist/ReactToastify.css";
 
 import StaticHomePage from "./pages/StaticHomePage";
@@ -21,21 +19,12 @@ import RegisterPage from "./pages/RegisterPage";
 import ReduxPage2 from "./pages/ReduxPage2";
 import ReduxPage from "./pages/ReduxPage";
 import ReduxPage3 from "./pages/ReduxPage3";
-import axios from "axios";
-// import AboutUs from "./pages/AboutUs";
+import useLogin from "./hooks/useLogin";
 
 const App = () => {
-  const dispatch = useDispatch();
+  const loginFunc = useLogin();
   useEffect(() => {
-    axios
-      .get("/client/getclientinfo")
-      .then(({ data }) => {
-        console.log(data);
-        dispatch(authActions.login(data));
-      })
-      .catch((err) => {
-        console.log("err", err.response.data);
-      });
+    loginFunc();
   }, []);
   return (
     <div className="container">

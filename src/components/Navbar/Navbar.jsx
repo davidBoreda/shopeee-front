@@ -1,22 +1,14 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 import NavbarLinkPartial from "../../partials/NavbarLinkPartial";
 import "./Navbar.css";
 import LinkClass from "../../classes/LinkClass";
-
-// const navLinksArr = [
-//   { linkName: "Home", linkUrl: "/" },
-//   { linkName: "About Us", linkUrl: "/aboutus" },
-//   { linkName: "Register", linkUrl: "/registerpage" },
-//   { linkName: "Contact Us", linkUrl: "/contactuspage" },
-//   { linkName: "Login", linkUrl: "/loginpage" },
-// ];
+import NavbarLinkComponent from "./NavbarLinkComponent";
 
 const linkArr = [
   new LinkClass("Home", "/"),
   new LinkClass("About Us", "/aboutus"),
   new LinkClass("Contact", "/contactuspage"),
-  // new LinkClass("Static Home", "/statichomepage"),
-  // new LinkClass("Register Explanation", "/registerpageexplanation"),
 ];
 
 const logRegLinkArr = [
@@ -28,6 +20,11 @@ const logRegLinkArr = [
 const Navbar = ({ isDark }) => {
   const isLoggedIn = useSelector((state) => state.authStore.isLoggedIn);
   const clientInfo = useSelector((state) => state.authStore.clientInfo);
+  const dispatch = useDispatch();
+  const handleLogoutClick = () => {
+    dispatch(authActions.logout());
+    // console.log("I'm here");
+  };
   return (
     <nav
       className={`navbar ${
@@ -59,17 +56,13 @@ const Navbar = ({ isDark }) => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {linkArr.map((item) => {
               return (
-                <li className="nav-item" key={item.name + Date.now()}>
-                  <NavbarLinkPartial
-                    className={`nav-link ${
-                      isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                    } active`}
-                    to={item.link}
-                    activeClassName="activeLink"
-                  >
-                    {item.name}
-                  </NavbarLinkPartial>
-                </li>
+                <NavbarLinkComponent
+                  key={item.name + Date.now()}
+                  isDark={isDark}
+                  to={item.link}
+                >
+                  {item.name}
+                </NavbarLinkComponent>
               );
             })}
           </ul>
@@ -91,21 +84,35 @@ const Navbar = ({ isDark }) => {
           </form>
           <div className="authDiv">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {logRegLinkArr.map((item) => {
-                return (
-                  <li className="nav-item" key={item.name + Date.now()}>
-                    <NavbarLinkPartial
-                      className={`nav-link ${
-                        isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
-                      } active`}
-                      to={item.link}
-                      activeClassName="activeLink"
+              {isLoggedIn
+                ? [
+                    <NavbarLinkComponent
+                      key={clientInfo.name + Date.now()}
+                      isDark={isDark}
+                      to="/profile"
                     >
-                      {item.name}
-                    </NavbarLinkPartial>
-                  </li>
-                );
-              })}
+                      {clientInfo.name}
+                    </NavbarLinkComponent>,
+                    <NavbarLinkComponent
+                      key={"/logout" + Date.now()}
+                      isDark={isDark}
+                      to="/loginpage"
+                      onClick={handleLogoutClick}
+                    >
+                      Logout
+                    </NavbarLinkComponent>,
+                  ]
+                : logRegLinkArr.map((item) => {
+                    return (
+                      <NavbarLinkComponent
+                        key={item.name + Date.now()}
+                        isDark={isDark}
+                        to={item.link}
+                      >
+                        {item.name}
+                      </NavbarLinkComponent>
+                    );
+                  })}
             </ul>
           </div>
         </div>
