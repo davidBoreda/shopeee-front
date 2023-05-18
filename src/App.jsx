@@ -30,10 +30,11 @@ const App = () => {
     axios
       .get("/client/getclientinfo")
       .then(({ data }) => {
+        console.log(data);
         dispatch(authActions.login(data));
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log("err", err.response.data);
       });
   }, []);
   return (

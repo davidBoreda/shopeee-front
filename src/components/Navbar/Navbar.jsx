@@ -91,52 +91,21 @@ const Navbar = ({ isDark }) => {
           </form>
           <div className="authDiv">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {isLoggedIn
-                ? [
-                    <li className="nav-item" key={"/profile" + Date.now()}>
-                      <NavbarLinkPartial
-                        className={`nav-link ${
-                          isDark
-                            ? "nav-item-dark-theme"
-                            : "nav-item-light-theme"
-                        } active`}
-                        to="/profile"
-                        activeClassName="activeLink"
-                      >
-                        {clientInfo}
-                      </NavbarLinkPartial>
-                    </li>,
-                    <li className="nav-item" key={"/logout" + Date.now()}>
-                      <NavbarLinkPartial
-                        className={`nav-link ${
-                          isDark
-                            ? "nav-item-dark-theme"
-                            : "nav-item-light-theme"
-                        } active`}
-                        to="/loguot"
-                        activeClassName="activeLink"
-                      >
-                        Loguot
-                      </NavbarLinkPartial>
-                    </li>,
-                  ]
-                : logRegLinkArr.map((item) => {
-                    return (
-                      <li className="nav-item" key={item.name + Date.now()}>
-                        <NavbarLinkPartial
-                          className={`nav-link ${
-                            isDark
-                              ? "nav-item-dark-theme"
-                              : "nav-item-light-theme"
-                          } active`}
-                          to={item.link}
-                          activeClassName="activeLink"
-                        >
-                          {item.name}
-                        </NavbarLinkPartial>
-                      </li>
-                    );
-                  })}
+              {logRegLinkArr.map((item) => {
+                return (
+                  <li className="nav-item" key={item.name + Date.now()}>
+                    <NavbarLinkPartial
+                      className={`nav-link ${
+                        isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
+                      } active`}
+                      to={item.link}
+                      activeClassName="activeLink"
+                    >
+                      {item.name}
+                    </NavbarLinkPartial>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
