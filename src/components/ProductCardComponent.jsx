@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import ButtonPartial from "../partials/ButtonPartial";
+import ButtonPartial, { btnPartialOptions } from "../partials/ButtonPartial";
+import { Fragment } from "react";
 
 const ProductCardComponent = ({
   id,
@@ -7,11 +8,20 @@ const ProductCardComponent = ({
   brand,
   description,
   price,
+  isAdmin,
   onAddToWishList,
+  onDelete,
+  onEdit,
   msg,
 }) => {
   const handleAddToWishListClick = () => {
     onAddToWishList(id);
+  };
+  const handleDeleteClick = () => {
+    onDelete(id);
+  };
+  const handleEditClick = () => {
+    onEdit(id);
   };
   return (
     <div className="card">
@@ -33,6 +43,24 @@ const ProductCardComponent = ({
         >
           Add
         </ButtonPartial>
+        {isAdmin && (
+          <Fragment>
+            <ButtonPartial
+              icon="bi-pen"
+              onClick={handleEditClick}
+              btnOption={btnPartialOptions.warning}
+            >
+              Edit
+            </ButtonPartial>
+            <ButtonPartial
+              icon="bi-trash"
+              onClick={handleDeleteClick}
+              btnOption={btnPartialOptions.danger}
+            >
+              Delete
+            </ButtonPartial>
+          </Fragment>
+        )}
       </div>
     </div>
   );
@@ -44,8 +72,15 @@ ProductCardComponent.propTypes = {
   brand: PropTypes.string,
   description: PropTypes.string,
   price: PropTypes.number,
+  isAdmin: PropTypes.bool,
   onAddToWishList: PropTypes.func,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
   msg: PropTypes.string,
+};
+
+ProductCardComponent.defaultProps = {
+  isAdmin: false,
 };
 
 export default ProductCardComponent;

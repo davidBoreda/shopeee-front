@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import ProductCardComponent from "../components/ProductCardComponent";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const isAdmin = useSelector((state) => state.authStore.clientInfo.isAdmin);
   const [productArr, setProductArr] = useState(null);
   useEffect(() => {
     axios
@@ -49,6 +51,30 @@ const HomePage = () => {
     }
   };
 
+  const handleDeleteClick = async (id) => {
+    try {
+      await axios.delete(`/products/deleteproduct/${id}`);
+      setProductArr((state) => {
+        if (!state) {
+          return state;
+        }
+        return state.filter((item) => item._id !== id);
+      });
+      toast.success("🦄 item deleted from Data Base", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
+
   if (productArr) {
     return (
       <div className="row row-clos-1 row-cols-md-3 g-4">
@@ -61,6 +87,8 @@ const HomePage = () => {
               price={item.price}
               brand={item.brand}
               onAddToWishList={handleAddToWishListClick}
+              onDelete={handleDeleteClick}
+              isAdmin={isAdmin}
             />
           </div>
         ))}
