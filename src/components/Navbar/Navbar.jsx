@@ -89,7 +89,7 @@ const Navbar = ({ isDark }) => {
                     <NavbarLinkComponent
                       key={clientInfo.name + Date.now()}
                       isDark={isDark}
-                      to="/profile"
+                      to="/profilepage"
                     >
                       {clientInfo.name}
                     </NavbarLinkComponent>,
