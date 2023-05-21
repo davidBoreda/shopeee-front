@@ -3,8 +3,10 @@ import ProductCardComponent from "../components/ProductCardComponent";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const isAdmin = useSelector((state) => state.authStore.clientInfo.isAdmin);
   const [productArr, setProductArr] = useState(null);
   useEffect(() => {
@@ -51,6 +53,11 @@ const HomePage = () => {
     }
   };
 
+  const handleEditClick = (id) => {
+    console.log("id", id);
+    navigate(`/editproduct/${id}`);
+  };
+
   const handleDeleteClick = async (id) => {
     try {
       await axios.delete(`/products/deleteproduct/${id}`);
@@ -89,6 +96,7 @@ const HomePage = () => {
               onAddToWishList={handleAddToWishListClick}
               onDelete={handleDeleteClick}
               isAdmin={isAdmin}
+              onEdit={handleEditClick}
             />
           </div>
         ))}

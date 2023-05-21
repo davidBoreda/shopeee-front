@@ -15,6 +15,7 @@ import UseCallbackPage from "../pages/UseCallbackPage";
 import UseMemoPage from "../pages/UseMemoPage";
 import ItemPage from "../pages/ItemPage";
 import Page404 from "../pages/Page404";
+import EditCardPage from "../pages/EditCardPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
@@ -37,6 +38,7 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
+      <Route path={ROUTES.EDITPRODUCT} element={<EditCardPage />} />
       <Route path={ROUTES.ABOUTUS} element={<AboutUs />} />
       <Route path={ROUTES.CONTACT} element={<ContactUsPage />} />
       <Route path="/lifecyclehookspage" element={<LifeCycleHooksPage />} />

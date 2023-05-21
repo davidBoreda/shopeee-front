@@ -6,6 +6,7 @@ const ROUTES = {
   ABOUTUS: "/aboutus",
   CONTACT: "/contactuspage",
   ITEMPAGE: "/item/:id",
+  EDITPRODUCT: "/editproduct/:productId",
   PAGE404: "*",
 };
 export default ROUTES;
