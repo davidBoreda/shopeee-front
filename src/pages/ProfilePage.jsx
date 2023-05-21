@@ -1,25 +1,29 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import validateRegisterSchema from "../validation/registerValidation";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import ROUTES from "../routes/routes";
 import AlertPartial from "../partials/AlertPartial";
+import editClientValidation from "../validation/editClientValidation";
+import { authActions } from "../store/auth";
 
 const ProfilePage = () => {
+  const dispatch = useDispatch();
+  const clientInfo = useSelector((state) => state.authStore.clientInfo);
+  console.log(clientInfo);
   const [userInputs, setUserInputs] = useState({
-    fName: "",
-    lName: "",
-    email: "",
-    password: "",
-    age: "",
+    fName: clientInfo.fName,
+    lName: clientInfo.lName,
+    age: clientInfo.age,
     clientAddress: {
-      city: "",
-      street: "",
-      houseNum: "",
+      city: clientInfo.clientAddress.city,
+      street: clientInfo.clientAddress.street,
+      houseNum: clientInfo.clientAddress.houseNum,
     },
   });
 
   const [errMessage, setErrMessage] = useState(null);
-
   const navigate = useNavigate();
 
   const handleUserInputsChange = (ev) => {
@@ -39,16 +43,14 @@ const ProfilePage = () => {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     try {
-      const errors = validateRegisterSchema(userInputs);
+      const errors = editClientValidation(userInputs);
       if (errors) {
         console.log(errors);
         setErrMessage(errors);
       } else {
-        await axios.post("/client/register", {
+        await axios.put("/client/editclient", {
           fName: userInputs.fName,
           lName: userInputs.lName,
-          email: userInputs.email,
-          password: userInputs.password,
           age: userInputs.age,
           clientAddress: {
             city: userInputs.clientAddress.city,
@@ -56,8 +58,8 @@ const ProfilePage = () => {
             houseNum: userInputs.clientAddress.houseNum,
           },
         });
-
-        navigate("/loginpage");
+        dispatch(authActions.login(userInputs));
+        navigate(ROUTES.PROFILE);
       }
     } catch (err) {
       console.log(err);
@@ -101,42 +103,11 @@ const ProfilePage = () => {
           <label htmlFor="emailInput" className="form-label">
             Email Address
           </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            aria-describedby="emailHelp"
-            value={userInputs.email}
-            onChange={handleUserInputsChange}
-          />
-          {errMessage && errMessage.email && (
-            <AlertPartial>{errMessage.email}</AlertPartial>
-          )}
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
+          <div className="form-text">
+            <p className="fs-5">{clientInfo.email}</p>
           </div>
         </div>
 
-        <div className="mb-1">
-          <label htmlFor="passwordInput" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            aria-describedby="emailHelp"
-            value={userInputs.password}
-            onChange={handleUserInputsChange}
-          />
-          {errMessage && errMessage.password && (
-            <AlertPartial>
-              {errMessage.password.map((item) => (
-                <div key={item + Date.now()}>{item}</div>
-              ))}
-            </AlertPartial>
-          )}
-        </div>
         <div className="mb-3">
           <label htmlFor="ageInput" className="form-label">
             Age
@@ -199,30 +170,10 @@ const ProfilePage = () => {
       </div>
       <span className="fs-1 fw-bold float-end">Shopeee</span>
       <button className="btn btn-primary" type="submit">
-        Register Here
+        Save changes
       </button>
     </form>
   );
 };
 
 export default ProfilePage;
-
-// return {
-//   fName: { type: String, required: true },
-//   lName: { type: String, required: true },
-//   email: { type: String, required: true, unique: true },
-//   password: { type: String, required: true },
-//   age: { type: Number },
-//   picture: { type: String },
-//   isAdmin: { type: Boolean, default: false },
-//   accountSecurity: {
-//     failedAttempts: { type: Number, default: 0 },
-//     accountBlocked: { type: Boolean, default: false },
-//     lastLoginAttempt: { type: Date, default: Date.now },
-//   },
-//   clientAddress: {
-//     city: { type: String, require: true },
-//     street: { type: String, require: true },
-//     houseNum: { type: String, require: true },
-//   },
-// };

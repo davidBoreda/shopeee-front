@@ -16,6 +16,7 @@ import UseMemoPage from "../pages/UseMemoPage";
 import ItemPage from "../pages/ItemPage";
 import Page404 from "../pages/Page404";
 import ProtectedRoute from "./ProtectedRoute";
+import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
 
 const Router = () => {
@@ -41,7 +42,10 @@ const Router = () => {
       <Route path="/lifecyclehookspage" element={<LifeCycleHooksPage />} />
       <Route path="/usecallbacpkage" element={<UseCallbackPage />} />
       <Route path="/usememopage" element={<UseMemoPage />} />
-      <Route path={ROUTES.ITEMPAGE} element={<ItemPage />} />
+      <Route
+        path={ROUTES.ITEMPAGE}
+        element={<AdminProtectedRoute element={<ItemPage />} />}
+      />
       <Route path={ROUTES.PAGE404} element={<Page404 />} />
     </Routes>
   );

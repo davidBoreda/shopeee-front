@@ -87,11 +87,11 @@ const Navbar = ({ isDark }) => {
               {isLoggedIn
                 ? [
                     <NavbarLinkComponent
-                      key={clientInfo.name + Date.now()}
+                      key={clientInfo.fName + Date.now()}
                       isDark={isDark}
                       to="/profilepage"
                     >
-                      {clientInfo.name}
+                      {clientInfo.fName}
                     </NavbarLinkComponent>,
                     <NavbarLinkComponent
                       key={"/logout" + Date.now()}
