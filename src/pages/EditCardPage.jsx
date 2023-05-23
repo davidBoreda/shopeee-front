@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ButtonPartial, { btnPartialOptions } from "../partials/ButtonPartial";
+import { toast } from "react-toastify";
 import {
   validateIdSchema,
   validateEditCardSchema,
@@ -65,8 +66,20 @@ const EditCardPage = () => {
         setErrorState(errors);
         return;
       }
-      console.log(productData);
-      await axios.put("/products/editproduct", productData);
+      const response = await axios.put("/products/editproduct", productData);
+      let { msg } = response.data;
+
+      toast.success(msg, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
       navigate(ROUTES.HOME);
     } catch (err) {
       console.log(err.response.data);

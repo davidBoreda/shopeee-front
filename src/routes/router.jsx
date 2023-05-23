@@ -19,6 +19,7 @@ import EditCardPage from "../pages/EditCardPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
+import SearchedBrand from "../pages/SearchedBrand";
 
 const Router = () => {
   return (
@@ -38,6 +39,7 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
+      <Route path="/searchedbrand" element={<SearchedBrand />} />
       <Route path={ROUTES.EDITPRODUCT} element={<EditCardPage />} />
       <Route path={ROUTES.ABOUTUS} element={<AboutUs />} />
       <Route path={ROUTES.CONTACT} element={<ContactUsPage />} />

@@ -1,9 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import NavbarLinkPartial from "../../partials/NavbarLinkPartial";
 import "./Navbar.css";
 import LinkClass from "../../classes/LinkClass";
 import NavbarLinkComponent from "./NavbarLinkComponent";
+import { searchActions } from "../../store/search";
+import { themeActions } from "../../store/theme";
 
 const linkArr = [
   new LinkClass("Home", "/"),
@@ -21,10 +25,33 @@ const Navbar = ({ isDark }) => {
   const isLoggedIn = useSelector((state) => state.authStore.isLoggedIn);
   const clientInfo = useSelector((state) => state.authStore.clientInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [searchInput, setSearchInput] = useState("");
+
   const handleLogoutClick = () => {
     dispatch(authActions.logout());
-    // console.log("I'm here");
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(searchActions.setSearchQuery(searchInput));
+    navigate("/searchedbrand");
+  };
+
+  // const [isToggled, setIsToggled] = useState(false);
+
+  // const handleDarkLightClick = () => {
+  //   setIsToggled((prevState) => !prevState);
+
+  //   console.log(isToggled);
+  // };
+
+  let themeState = false;
+  const handleDarkLightClick = () => {
+    dispatch(themeActions.setTheme(themeState));
+  };
+
   return (
     <nav
       className={`navbar ${
@@ -66,12 +93,14 @@ const Navbar = ({ isDark }) => {
               );
             })}
           </ul>
-          <form className="d-flex" role="search">
+          <form className="d-flex" role="search" onSubmit={handleSearch}>
             <input
               className="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
             <button
               className={`btn ${
@@ -115,6 +144,16 @@ const Navbar = ({ isDark }) => {
                   })}
             </ul>
           </div>
+
+          <button
+            type="button"
+            className={`btn btn-outline btn-sm ${
+              isDark ? "nav-item-dark-theme" : "nav-item-light-theme"
+            }`}
+            onClick={handleDarkLightClick}
+          >
+            <i className="bi bi-brightness-high"></i>
+          </button>
         </div>
       </div>
     </nav>

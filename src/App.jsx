@@ -7,8 +7,10 @@ import Navbar from "./components/Navbar/Navbar";
 
 import useLogin from "./hooks/useLogin";
 import Router from "./routes/router";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const theme = useSelector((state) => state.themeStore.isDark);
   const loginFunc = useLogin();
   useEffect(() => {
     loginFunc();
@@ -17,7 +19,7 @@ const App = () => {
     <div className="container">
       <ToastContainer />
       <header>
-        <Navbar isDark={true} />
+        <Navbar isDark={theme} />
       </header>
       <main className="mt-2">
         <Router />

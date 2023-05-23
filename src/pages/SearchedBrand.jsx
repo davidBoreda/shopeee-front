@@ -1,29 +1,29 @@
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-
-import { useNavigate } from "react-router-dom";
-// import useQueryParams from "../hooks/useQueryParams";
-
 import ProductCardComponent from "../components/ProductCardComponent";
 
-const HomePage = () => {
+import ROUTES from "../routes/routes";
+
+const SearchedBrand = () => {
   const navigate = useNavigate();
+  const searchQuery = useSelector((state) => state.searchStore.navSearch);
   const isAdmin = useSelector((state) => state.authStore.clientInfo.isAdmin);
   const [productArr, setProductArr] = useState(null);
 
   useEffect(() => {
     axios
-      .get("/products/1/10")
+      .get(`products/1/10/findbyname?brand=${searchQuery}`)
       .then(({ data }) => {
+        console.log(data);
         setProductArr(data);
-        // console.log(data);
       })
       .catch((err) => {
-        console.log(err);
+        navigate(ROUTES.HOME);
       });
-  }, []);
+  }, [searchQuery]);
 
   const handleAddToWishListClick = async (id) => {
     // console.log(id);
@@ -87,7 +87,6 @@ const HomePage = () => {
       console.log(err.response.data);
     }
   };
-
   if (productArr) {
     return (
       <div className="row row-clos-1 row-cols-md-3 g-4">
@@ -110,11 +109,13 @@ const HomePage = () => {
     );
   } else {
     return (
-      <div className="spinner-border text-info" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
+      <Fragment>
+        <div className="spinner-border text-info" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <NavLink to={"/"}>Back to Home Page</NavLink>
+      </Fragment>
     );
   }
 };
-
-export default HomePage;
+export default SearchedBrand;
