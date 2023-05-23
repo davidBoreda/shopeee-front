@@ -8,6 +8,8 @@ const ROUTES = {
   ITEMPAGE: "/item/:id",
   EDITPRODUCT: "/editproduct/:productId",
   ADDPRODUCT: "/addproduct",
+  SEARCHBRAND: "/searchedbrand",
+  ADDCLIENT: "/addclient",
   PAGE404: "*",
 };
 export default ROUTES;

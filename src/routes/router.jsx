@@ -21,6 +21,7 @@ import SearchedBrand from "../pages/SearchedBrand";
 import AddProductPage from "../pages/AddProductPage";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
+import AddNewClient from "../pages/AddNewClient";
 
 const Router = () => {
   return (
@@ -40,7 +41,7 @@ const Router = () => {
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
       />
-      <Route path="/searchedbrand" element={<SearchedBrand />} />
+      <Route path={ROUTES.SEARCHBRAND} element={<SearchedBrand />} />
       <Route path={ROUTES.EDITPRODUCT} element={<EditCardPage />} />
       <Route path={ROUTES.ABOUTUS} element={<AboutUs />} />
       <Route path={ROUTES.CONTACT} element={<ContactUsPage />} />
@@ -54,6 +55,10 @@ const Router = () => {
       <Route
         path={ROUTES.ADDPRODUCT}
         element={<AdminProtectedRoute element={<AddProductPage />} />}
+      />
+      <Route
+        path={ROUTES.ADDCLIENT}
+        element={<AdminProtectedRoute element={<AddNewClient />} />}
       />
       <Route path={ROUTES.PAGE404} element={<Page404 />} />
     </Routes>

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import ProductCardComponent from "../components/ProductCardComponent";
 
 import ROUTES from "../routes/routes";
+import { validateSearchSchema } from "../validation/searchValidation";
 
 const SearchedBrand = () => {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ const SearchedBrand = () => {
   const [productArr, setProductArr] = useState(null);
 
   useEffect(() => {
+    const errors = validateSearchSchema(searchQuery);
+    if (errors) {
+      console.log(errors);
+    }
     axios
       .get(`products/1/10/findbyname?brand=${searchQuery}`)
       .then(({ data }) => {
@@ -99,6 +104,7 @@ const SearchedBrand = () => {
               onDelete={handleDeleteClick}
               isAdmin={isAdmin}
               onEdit={handleEditClick}
+              imgUrl={item.picture}
             />
           </div>
         ))}

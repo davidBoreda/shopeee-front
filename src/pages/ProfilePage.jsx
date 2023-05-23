@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
 import ROUTES from "../routes/routes";
 import AlertPartial from "../partials/AlertPartial";
 import editClientValidation from "../validation/editClientValidation";
@@ -50,7 +52,7 @@ const ProfilePage = () => {
         console.log(errors);
         setErrMessage(errors);
       } else {
-        await axios.put("/client/editclient", {
+        const response = await axios.put("/client/editclient", {
           fName: userInputs.fName,
           lName: userInputs.lName,
           age: userInputs.age,
@@ -60,6 +62,18 @@ const ProfilePage = () => {
             houseNum: userInputs.clientAddress.houseNum,
           },
         });
+        let { msg } = response.data;
+        toast.success(msg, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
         dispatch(authActions.login(userInputs));
         navigate(ROUTES.PROFILE);
       }
