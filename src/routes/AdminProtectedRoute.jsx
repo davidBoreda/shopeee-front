@@ -4,7 +4,6 @@ import ROUTES from "./routes";
 
 const AdminProtectedRoute = ({ element }) => {
   const clientInfo = useSelector((state) => state.authStore.clientInfo);
-  console.log(clientInfo.isAdmin);
   if (clientInfo.isAdmin) {
     return element;
   } else {

@@ -17,9 +17,10 @@ import ItemPage from "../pages/ItemPage";
 import Page404 from "../pages/Page404";
 import EditCardPage from "../pages/EditCardPage";
 import ProtectedRoute from "./ProtectedRoute";
+import SearchedBrand from "../pages/SearchedBrand";
+import AddProductPage from "../pages/AddProductPage";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
-import SearchedBrand from "../pages/SearchedBrand";
 
 const Router = () => {
   return (
@@ -49,6 +50,10 @@ const Router = () => {
       <Route
         path={ROUTES.ITEMPAGE}
         element={<AdminProtectedRoute element={<ItemPage />} />}
+      />
+      <Route
+        path={ROUTES.ADDPRODUCT}
+        element={<AdminProtectedRoute element={<AddProductPage />} />}
       />
       <Route path={ROUTES.PAGE404} element={<Page404 />} />
     </Routes>

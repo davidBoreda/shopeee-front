@@ -6,18 +6,18 @@ const idSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
 });
 
-const editCardSchema = Joi.object({
-  _id: Joi.string().hex().length(24),
+const newProductSchema = Joi.object({
   name: Joi.string().min(3).max(255),
   brand: Joi.string().min(2).max(255),
   description: Joi.string().min(3).max(255),
   stockQuant: Joi.number(),
-  picture: Joi.string(),
+  picture: Joi.string().trim(),
   price: Joi.number(),
 });
 
 const validateIdSchema = (userInputs) => validate(idSchema, userInputs);
-const validateEditCardSchema = (userInputs) =>
-  validate(editCardSchema, userInputs);
 
-export { validateIdSchema, validateEditCardSchema };
+const validateNewProductSchema = (userInputs) =>
+  validate(newProductSchema, userInputs);
+
+export { validateIdSchema, validateNewProductSchema };

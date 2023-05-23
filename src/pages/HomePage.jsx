@@ -18,7 +18,6 @@ const HomePage = () => {
       .get("/products/1/10")
       .then(({ data }) => {
         setProductArr(data);
-        // console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -26,7 +25,6 @@ const HomePage = () => {
   }, []);
 
   const handleAddToWishListClick = async (id) => {
-    // console.log(id);
     try {
       const res = await axios.post("/favorite/newfavorite", {
         favoritesId: id,
@@ -58,7 +56,6 @@ const HomePage = () => {
   };
 
   const handleEditClick = (id) => {
-    console.log("id", id);
     navigate(`/editproduct/${id}`);
   };
 
@@ -103,6 +100,7 @@ const HomePage = () => {
               onDelete={handleDeleteClick}
               isAdmin={isAdmin}
               onEdit={handleEditClick}
+              imgUrl={item.picture}
             />
           </div>
         ))}

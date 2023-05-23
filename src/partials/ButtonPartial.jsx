@@ -14,7 +14,6 @@ const btnPartialOptions = {
 };
 
 const ButtonPartial = ({ btnOption, icon, children, onClick }) => {
-  console.log("btn rendered");
   // const defaultBtnOption = btnPartialOptions.primary;
   return (
     // <button className={`btn btn-${btnOption ? btnOption : defaultBtnOption}`}>

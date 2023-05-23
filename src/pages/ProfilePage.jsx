@@ -8,11 +8,12 @@ import AlertPartial from "../partials/AlertPartial";
 import editClientValidation from "../validation/editClientValidation";
 import { authActions } from "../store/auth";
 import UserPanelComponent from "../components/UserPanelComponent";
+import AdminPanelComponent from "../components/AdminPanelComponent copy";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const clientInfo = useSelector((state) => state.authStore.clientInfo);
-  console.log(clientInfo);
+
   const [userInputs, setUserInputs] = useState({
     fName: clientInfo.fName,
     lName: clientInfo.lName,
@@ -178,6 +179,11 @@ const ProfilePage = () => {
       </form>
       <div className="col-3">
         <UserPanelComponent fName={clientInfo.fName}></UserPanelComponent>
+        {clientInfo.isAdmin ? (
+          <AdminPanelComponent className="mt-3"></AdminPanelComponent>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

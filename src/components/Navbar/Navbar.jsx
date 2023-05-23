@@ -39,14 +39,6 @@ const Navbar = ({ isDark }) => {
     navigate("/searchedbrand");
   };
 
-  // const [isToggled, setIsToggled] = useState(false);
-
-  // const handleDarkLightClick = () => {
-  //   setIsToggled((prevState) => !prevState);
-
-  //   console.log(isToggled);
-  // };
-
   let themeState = false;
   const handleDarkLightClick = () => {
     dispatch(themeActions.setTheme(themeState));

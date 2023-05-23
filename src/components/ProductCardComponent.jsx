@@ -12,7 +12,7 @@ const ProductCardComponent = ({
   onAddToWishList,
   onDelete,
   onEdit,
-  msg,
+  imgUrl,
 }) => {
   const handleAddToWishListClick = () => {
     onAddToWishList(id);
@@ -23,11 +23,12 @@ const ProductCardComponent = ({
   const handleEditClick = () => {
     onEdit(id);
   };
+
   return (
     <div className="card">
       <div className="card-header">{brand}</div>
       <div className="card-body">
-        {/* <img src="..." className="card-img-top" alt="..." /> */}
+        <img src={imgUrl} className="card-img-top" alt="..." />
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{description}</p>
         <ul className="list-group list-group-flush">
@@ -35,7 +36,7 @@ const ProductCardComponent = ({
             Price:
             <span className="badge bg-dark pill">{price}</span>
           </li>
-          <span>{msg}</span>
+          {/* <img src={imgUrl} className="img-fluid rounded-start" alt="..." /> */}
         </ul>
         <ButtonPartial
           icon="bi-clipboard2-heart-fill"
@@ -76,7 +77,7 @@ ProductCardComponent.propTypes = {
   onAddToWishList: PropTypes.func,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
-  msg: PropTypes.string,
+  imgUrl: PropTypes.string,
 };
 
 ProductCardComponent.defaultProps = {

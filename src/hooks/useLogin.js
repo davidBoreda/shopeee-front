@@ -12,7 +12,6 @@ const useLogin = () => {
     axios
       .get("/client/getclientinfo")
       .then(({ data }) => {
-        console.log(data);
         dispatch(authActions.login(data));
       })
       .catch((err) => {

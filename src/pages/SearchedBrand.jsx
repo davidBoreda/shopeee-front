@@ -17,7 +17,6 @@ const SearchedBrand = () => {
     axios
       .get(`products/1/10/findbyname?brand=${searchQuery}`)
       .then(({ data }) => {
-        console.log(data);
         setProductArr(data);
       })
       .catch((err) => {
@@ -26,7 +25,6 @@ const SearchedBrand = () => {
   }, [searchQuery]);
 
   const handleAddToWishListClick = async (id) => {
-    // console.log(id);
     try {
       const res = await axios.post("/favorite/newfavorite", {
         favoritesId: id,
@@ -58,7 +56,6 @@ const SearchedBrand = () => {
   };
 
   const handleEditClick = (id) => {
-    console.log("id", id);
     navigate(`/editproduct/${id}`);
   };
 

@@ -26,14 +26,12 @@ const LoginPage = () => {
     try {
       const errors = validateLoginSchema(userInputs);
       if (errors) {
-        console.log(errors);
         setErrMessage(errors);
       } else {
         const { data } = await axios.post("/client/login", {
           email: userInputs.emailInput,
           password: userInputs.passwordInput,
         });
-        console.log(data);
         localStorage.setItem("token", data.token);
         loginFunc();
         navigate("/");

@@ -7,6 +7,7 @@ const ROUTES = {
   CONTACT: "/contactuspage",
   ITEMPAGE: "/item/:id",
   EDITPRODUCT: "/editproduct/:productId",
+  ADDPRODUCT: "/addproduct",
   PAGE404: "*",
 };
 export default ROUTES;

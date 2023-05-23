@@ -61,11 +61,13 @@ const EditCardPage = () => {
         description: productData.description,
         stockQuant: productData.stockQuant,
         price: productData.price,
+        picture: productData.picture,
       });
       if (errors) {
         setErrorState(errors);
         return;
       }
+
       const response = await axios.put("/products/editproduct", productData);
       let { msg } = response.data;
 
@@ -133,6 +135,20 @@ const EditCardPage = () => {
             />
             {errorState && errorState.description && (
               <AlertPartial>{errorState.description.join("<br>")}</AlertPartial>
+            )}
+          </div>
+
+          <div className="form-group col-md-6">
+            <label>Picture:</label>
+            <input
+              type="text"
+              className="form-control mb-3"
+              id="picture"
+              value={productData.picture}
+              onChange={handleInputChange}
+            />
+            {errorState && errorState.picture && (
+              <AlertPartial>{errorState.picture.join("<br>")}</AlertPartial>
             )}
           </div>
 
