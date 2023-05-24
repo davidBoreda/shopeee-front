@@ -105,6 +105,19 @@ const Navbar = ({ isDark }) => {
           </form>
           <div className="authDiv">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {isLoggedIn && clientInfo.vipClient ? (
+                <img
+                  src={clientInfo.picture}
+                  style={{
+                    width: "40px",
+                    height: "auto",
+                    borderRadius: "50%",
+                  }}
+                  alt="..."
+                />
+              ) : (
+                ""
+              )}
               {isLoggedIn
                 ? [
                     <NavbarLinkComponent
