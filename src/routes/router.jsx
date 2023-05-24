@@ -22,6 +22,7 @@ import AddProductPage from "../pages/AddProductPage";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
 import AddNewClient from "../pages/AddNewClient";
+import FavoritePage from "../pages/FavoritePage";
 
 const Router = () => {
   return (
@@ -40,6 +41,10 @@ const Router = () => {
       <Route
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
+      />
+      <Route
+        path={ROUTES.FAVORITES}
+        element={<ProtectedRoute element={<FavoritePage />} />}
       />
       <Route path={ROUTES.SEARCHBRAND} element={<SearchedBrand />} />
       <Route path={ROUTES.EDITPRODUCT} element={<EditCardPage />} />

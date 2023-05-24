@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import ROUTES from "../routes/routes";
 import AlertPartial from "../partials/AlertPartial";
-import validateEmailSchema from "../validation/emailValidation";
+import { validateEmailSchema } from "../validation/ClientValidation";
 
 const AdminPanelComponent = ({ fName }) => {
   const [clientInputs, setClientInputs] = useState({ email: "" });
@@ -49,11 +49,11 @@ const AdminPanelComponent = ({ fName }) => {
   };
 
   const handleDeleteClientClick = () => {
-    console.log("clicked delete");
+    // console.log("clicked delete");
   };
 
   const handleNewClientClick = () => {
-    // navigate(ROUTES.ADDCLIENT);
+    navigate(ROUTES.ADDCLIENT);
   };
 
   const handleAddProductClick = () => {

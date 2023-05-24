@@ -10,6 +10,7 @@ const ROUTES = {
   ADDPRODUCT: "/addproduct",
   SEARCHBRAND: "/searchedbrand",
   ADDCLIENT: "/addclient",
+  FAVORITES: "/favorites",
   PAGE404: "*",
 };
 export default ROUTES;
