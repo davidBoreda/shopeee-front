@@ -29,7 +29,11 @@ const AddNewClient = () => {
     let newUserInputs = { ...userInputs };
 
     if (ev.target.type === "checkbox") {
-      newUserInputs.isAdmin = ev.target.checked;
+      if (ev.target.id === "isAdmin") {
+        newUserInputs.isAdmin = ev.target.checked;
+      } else if (ev.target.id === "vipClient") {
+        newUserInputs.vipClient = ev.target.checked;
+      }
     } else if (ev.target.id.startsWith("clientAddress")) {
       const [key, nestedKey] = ev.target.id.split(".");
       newUserInputs[key] = {

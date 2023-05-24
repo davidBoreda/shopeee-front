@@ -12,6 +12,7 @@ const addClientSchema = Joi.object({
     .trim()
     .required(),
   isAdmin: Joi.boolean(),
+  vipClient: Joi.boolean(),
   password: Joi.string()
     .pattern(
       new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/)
