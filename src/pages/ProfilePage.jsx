@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -20,13 +20,14 @@ const ProfilePage = () => {
     fName: clientInfo.fName,
     lName: clientInfo.lName,
     age: clientInfo.age,
+    picture: clientInfo.picture,
     clientAddress: {
       city: clientInfo.clientAddress.city,
       street: clientInfo.clientAddress.street,
       houseNum: clientInfo.clientAddress.houseNum,
     },
   });
-
+  console.log(clientInfo);
   const [errMessage, setErrMessage] = useState(null);
   const navigate = useNavigate();
 
@@ -56,6 +57,7 @@ const ProfilePage = () => {
           fName: userInputs.fName,
           lName: userInputs.lName,
           age: userInputs.age,
+          picture: userInputs.picture,
           clientAddress: {
             city: userInputs.clientAddress.city,
             street: userInputs.clientAddress.street,
@@ -141,6 +143,22 @@ const ProfilePage = () => {
               <AlertPartial>{errMessage.age}</AlertPartial>
             )}
           </div>
+
+          <div className="col mb-1">
+            <label htmlFor="pictureInput" className="form-label">
+              Picture
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="picture"
+              value={userInputs.picture}
+              onChange={handleUserInputsChange}
+            />
+            {errMessage && errMessage.picture && (
+              <AlertPartial>{errMessage.picture}</AlertPartial>
+            )}
+          </div>
         </div>
         <div className="row row-clos-1 row-cols-md-3 g-4">
           <div className="mb-3">
@@ -193,6 +211,15 @@ const ProfilePage = () => {
       </form>
       <div className="col-3">
         <UserPanelComponent fName={clientInfo.fName}></UserPanelComponent>
+        <div className="col-3">
+          {clientInfo.vipClient ? (
+            <NavLink to="mailto:dav@gmail.com" activeclassname="active">
+              Send Mail To Admin
+            </NavLink>
+          ) : (
+            ""
+          )}
+        </div>
         {clientInfo.isAdmin ? (
           <AdminPanelComponent className="mt-3"></AdminPanelComponent>
         ) : (
