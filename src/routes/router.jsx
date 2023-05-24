@@ -18,6 +18,7 @@ import AdminProtectedRoute from "./AdminProtectedRoute";
 import ROUTES from "./routes";
 import AddNewClient from "../pages/AddNewClient";
 import FavoritePage from "../pages/FavoritePage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 const Router = () => {
   return (
@@ -29,6 +30,10 @@ const Router = () => {
       <Route
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
+      />
+      <Route
+        path={ROUTES.RESETPASSWORD}
+        element={<ProtectedRoute element={<ResetPasswordPage />} />}
       />
       <Route
         path={ROUTES.FAVORITES}

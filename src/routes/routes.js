@@ -11,6 +11,7 @@ const ROUTES = {
   SEARCHBRAND: "/searchedbrand",
   ADDCLIENT: "/addclient",
   FAVORITES: "/favorites",
+  RESETPASSWORD: "/resetpassword",
   PAGE404: "*",
 };
 export default ROUTES;
