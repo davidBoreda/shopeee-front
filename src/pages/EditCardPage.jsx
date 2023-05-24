@@ -101,7 +101,7 @@ const EditCardPage = () => {
             <label>Product Name:</label>
             <input
               type="text"
-              id="productName"
+              id="name"
               className="form-control mb-3"
               onChange={handleInputChange}
               value={productData.name}
