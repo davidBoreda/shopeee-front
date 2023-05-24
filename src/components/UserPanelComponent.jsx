@@ -1,24 +1,20 @@
 import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 import ROUTES from "../routes/routes";
-import AlertPartial from "../partials/AlertPartial";
-import { validateNewPassSchema } from "../validation/ClientValidation";
 
 const UserPanelComponent = ({ fName }) => {
-  const [clientInputs, setClientInputs] = useState({
-    password: "",
-    repeatPassword: "",
-  });
-  const [errMessage, setErrMessage] = useState(null);
+  // const [clientInputs, setClientInputs] = useState({
+  //   password: "",
+  //   repeatPassword: "",
+  // });
+  // const [errMessage, setErrMessage] = useState(null);
 
-  const handleUserInputsChange = (ev) => {
-    const newClientInputs = { ...clientInputs };
-    newClientInputs[ev.target.id] = ev.target.value;
-    setClientInputs(newClientInputs);
-  };
+  // const handleUserInputsChange = (ev) => {
+  //   const newClientInputs = { ...clientInputs };
+  //   newClientInputs[ev.target.id] = ev.target.value;
+  //   setClientInputs(newClientInputs);
+  // };
 
   const navigate = useNavigate();
 
@@ -26,34 +22,8 @@ const UserPanelComponent = ({ fName }) => {
     navigate(ROUTES.FAVORITES);
   };
   //TODO fix reset password
-  const handleResetPasswordClick = async (ev) => {
-    ev.preventDefault();
-    try {
-      const errors = validateNewPassSchema(clientInputs);
-      if (errors) {
-        console.log(errors);
-        setErrMessage(errors);
-      } else {
-        const response = await axios.patch("/client/resetpassword", {
-          password: clientInputs.password,
-          repeatPassword: clientInputs.repeatPassword,
-        });
-        let { msg } = response.data;
-
-        toast.success(msg, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const handleResetPasswordClick = () => {
+    navigate(ROUTES.RESETPASSWORD);
   };
 
   return (
@@ -94,6 +64,7 @@ const UserPanelComponent = ({ fName }) => {
             <button
               type="button"
               className="col-5 btn btn-outline-secondary me-3"
+              onClick={handleResetPasswordClick}
             >
               Reset Password
             </button>

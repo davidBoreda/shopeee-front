@@ -14,6 +14,7 @@ const AddNewClient = () => {
     password: "",
     age: "",
     isAdmin: false,
+    vipClient: false,
     clientAddress: {
       city: "",
       street: "",
@@ -55,6 +56,7 @@ const AddNewClient = () => {
           lName: userInputs.lName,
           email: userInputs.email,
           isAdmin: userInputs.isAdmin,
+          vipClient: userInputs.vipClient,
           password: userInputs.password,
           age: userInputs.age,
           clientAddress: {
@@ -148,8 +150,25 @@ const AddNewClient = () => {
           <label className="form-check-label" htmlFor="isAdminInput">
             Admin
           </label>
-          {errMessage && errMessage.email && (
-            <AlertPartial>{errMessage.email}</AlertPartial>
+          {errMessage && errMessage.isAdmin && (
+            <AlertPartial>{errMessage.isAdmin}</AlertPartial>
+          )}
+        </div>
+
+        <div className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="vipClient"
+            value={userInputs.vipClient}
+            onChange={handleUserInputsChange}
+          />
+          <label className="form-check-label" htmlFor="vipClientInput">
+            Vip Client
+          </label>
+          {errMessage && errMessage.vipClient && (
+            <AlertPartial>{errMessage.vipClient}</AlertPartial>
           )}
         </div>
 
